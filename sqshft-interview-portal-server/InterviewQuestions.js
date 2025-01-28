@@ -292,6 +292,7 @@ const Questions = [
     answer: [{ id: "1" }, { id: "3" }],
     isMultiSelect: true,
   },
+  // hard
   {
     id: 21,
     Ques: "In JavaScript, which of the following methods can cause the loss of the 'this' context in a function?",
@@ -468,7 +469,7 @@ const Questions = [
     answer: [{ id: "1" }],
     isMultiSelect: false,
   },
-  // logical
+  // logical -easy
   {
     id: 31,
     Ques: "Which number logically completes the series: 2, 5, 10, 17, __ ?",
@@ -631,7 +632,7 @@ const Questions = [
   },
   // Quants
   {
-    id: 40,
+    id: 41,
     Ques: "What is the value of 15% of 250?",
     quesImage: "",
     codeBlock: "",
@@ -647,7 +648,7 @@ const Questions = [
     isMultiSelect: false,
   },
   {
-    id: 41,
+    id: 42,
     Ques: "If a car travels 120 kilometers in 2 hours, what is its average speed?",
     quesImage: "",
     codeBlock: "",
@@ -663,7 +664,7 @@ const Questions = [
     isMultiSelect: false,
   },
   {
-    id: 42,
+    id: 43,
     Ques: "What is the least common multiple (LCM) of 6, 8, and 12?",
     quesImage: "",
     codeBlock: "",
@@ -679,7 +680,7 @@ const Questions = [
     isMultiSelect: false,
   },
   {
-    id: 43,
+    id: 44,
     Ques: "If a box contains 5 red balls, 7 green balls, and 3 blue balls, what is the probability of drawing a red ball?",
     quesImage: "",
     codeBlock: "",
@@ -695,7 +696,7 @@ const Questions = [
     isMultiSelect: false,
   },
   {
-    id: 44,
+    id: 45,
     Ques: "A man can complete a task in 5 days. How long will it take him to complete the task if he works at half the speed?",
     quesImage: "",
     codeBlock: "",
@@ -711,7 +712,7 @@ const Questions = [
     isMultiSelect: false,
   },
   {
-    id: 45,
+    id: 46,
     Ques: "Which of the following numbers is a prime number?",
     quesImage: "",
     codeBlock: "",
@@ -727,7 +728,7 @@ const Questions = [
     isMultiSelect: false,
   },
   {
-    id: 46,
+    id: 47,
     Ques: "What is the square root of 144?",
     quesImage: "",
     codeBlock: "",
@@ -743,7 +744,7 @@ const Questions = [
     isMultiSelect: false,
   },
   {
-    id: 47,
+    id: 48,
     Ques: "The cost of 5 apples is $15. What is the cost of 8 apples?",
     quesImage: "",
     codeBlock: "",
@@ -759,7 +760,7 @@ const Questions = [
     isMultiSelect: false,
   },
   {
-    id: 48,
+    id: 49,
     Ques: "If the probability of an event happening is 3/5, what is the probability of the event not happening?",
     quesImage: "",
     codeBlock: "",
@@ -775,7 +776,7 @@ const Questions = [
     isMultiSelect: false,
   },
   {
-    id: 49,
+    id: 50,
     Ques: "Which of the following pairs are equal?",
     quesImage: "",
     codeBlock: "",
@@ -791,7 +792,7 @@ const Questions = [
     isMultiSelect: true,
   },
   {
-    id: 50,
+    id: 51,
     Ques: "Which of the following are prime numbers?",
     quesImage: "",
     codeBlock: "",
