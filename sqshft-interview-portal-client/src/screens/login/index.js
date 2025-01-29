@@ -10,21 +10,20 @@ import {
   F_NAME,
   IMAGE_URL,
   LETTERN_PATTERN,
-  L_NAME,
+  ROLL_NUMBER,
   ROUTES_MAP,
 } from "../../utils/constants";
 import { isUserLoggedIn, makeAPICall } from "../../utils/helpers";
 import Modal from "../../components/modal";
 import Loading from "react-fullscreen-loading";
 
-const Login = ({requestFullScreen}) => {
+const Login = ({ requestFullScreen }) => {
   const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [rollNumber, setRollNumber] = useState("");
   const [email, setEmail] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState("");
   const [loading, setLoading] = useState(false);
-
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -43,12 +42,12 @@ const Login = ({requestFullScreen}) => {
       setModalContent("Please enter valid name.");
       return;
     }
-    setLoading(true)
+    setLoading(true);
     const data = await makeAPICall({
       endpoint: API_END_POINTS.START_TEST,
       body: {
         firstName,
-        lastName,
+        lastName: rollNumber,
         email,
       },
       method: API_METHODS.POST,
@@ -56,18 +55,18 @@ const Login = ({requestFullScreen}) => {
     if (data?.success) {
       localStorage.setItem(EMAIL_ID, email);
       localStorage.setItem(F_NAME, firstName);
-      localStorage.setItem(L_NAME, lastName);
+      localStorage.setItem(ROLL_NUMBER, rollNumber);
       requestFullScreen();
       navigate(ROUTES_MAP.QUESTIONS);
     } else {
       setShowModal(true);
       setModalContent(data?.message || "Kindly contact the admin");
     }
-    setLoading(false)
+    setLoading(false);
   };
 
-  if(loading){
-    <Loading loading background="#FFF" loaderColor="#257d256b" />
+  if (loading) {
+    <Loading loading background="#FFF" loaderColor="#257d256b" />;
   }
 
   return (
@@ -81,7 +80,7 @@ const Login = ({requestFullScreen}) => {
           className="form-control w-75 m-3"
           value={firstName}
           type="text"
-          placeholder="First Name"
+          placeholder="Enter Name"
           onChange={(e) =>
             (e.target.value.match(LETTERN_PATTERN) ||
               e.target.value.toString().length === 0) &&
@@ -91,13 +90,9 @@ const Login = ({requestFullScreen}) => {
         <input
           className="form-control w-75 m-3"
           type="text"
-          placeholder="Last Name"
-          value={lastName}
-          onChange={(e) =>
-            (e.target.value.match(LETTERN_PATTERN) ||
-              e.target.value.toString().length === 0) &&
-            setLastName(e.target.value)
-          }
+          placeholder="Enter Roll Number"
+          value={rollNumber}
+          onChange={(e) => setRollNumber(e.target.value)}
         />
         <input
           type="email"
@@ -109,7 +104,11 @@ const Login = ({requestFullScreen}) => {
         <button
           className="btn btn-primary"
           onClick={onStartButtonPress}
-          disabled={firstName.length === 0 || email.length === 0}
+          disabled={
+            firstName.length === 0 ||
+            email.length === 0 ||
+            rollNumber.length === 0
+          }
         >
           Start test
         </button>

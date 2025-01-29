@@ -6,7 +6,7 @@ import {
   API_METHODS,
   EMAIL_ID,
   F_NAME,
-  L_NAME,
+  ROLL_NUMBER,
 } from "../../utils/constants";
 import { makeAPICall } from "../../utils/helpers";
 import Loading from "react-fullscreen-loading";
@@ -15,7 +15,52 @@ import Modal from "../../components/modal";
 import "./question.css";
 
 const QuestionBoard = () => {
+  const [showWarning, setShowWarningModal] = useState(false);
   const navigate = useNavigate();
+
+  const [message, setMessage] = useState(
+    "Please stay on this tab!. If you try again you will be logged out"
+  );
+
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      // Detect when the page visibility changes (e.g., tab switch, minimize, etc.)
+      if (document.hidden) {
+        setShowWarningModal(true);
+        setCount((oldState) => oldState + 1);
+      }
+    };
+
+    const handleWindowBlur = () => {
+      setShowWarningModal(true);
+      setCount((oldState) => oldState + 1);
+    };
+
+    // Add event listeners for visibility change and window focus/blur events
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("blur", handleWindowBlur);
+
+    // Clean up event listeners when the component unmounts
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.addEventListener("blur", handleWindowBlur);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (count === 2) {
+      setShowWarningModal(true);
+      setMessage("you have been logged out due to a policy violation.");
+      setCount((oldState) => oldState + 1);
+      localStorage.clear();
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
+    }
+  }, [count, navigate]);
+
   const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState({});
@@ -62,7 +107,7 @@ const QuestionBoard = () => {
       method: API_METHODS.POST,
       body: {
         firstName: localStorage.getItem(F_NAME),
-        lastName: localStorage.getItem(L_NAME) || "",
+        lastName: localStorage.getItem(ROLL_NUMBER) || "",
         email: localStorage.getItem(EMAIL_ID),
         selectedAnswers,
       },
@@ -71,9 +116,7 @@ const QuestionBoard = () => {
     if (data?.success) {
       setShowModal(true);
       setModalContent(
-        `Hello ${localStorage.getItem(F_NAME)} ${localStorage.getItem(
-          L_NAME
-        )}, You have completed the test.`
+        `Hello ${localStorage.getItem(F_NAME)} , You have completed the test.`
       );
       localStorage.clear();
       setTestCompleted(true);
@@ -229,6 +272,13 @@ const QuestionBoard = () => {
         hideModal={handleHideModal}
         content={modalContent}
       />
+
+      {/* Show the warning modal if the state is true */}
+      <Modal
+        show={showWarning}
+        hideModal={() => setShowWarningModal(false)}
+        content={message}
+      ></Modal>
     </>
   );
 };

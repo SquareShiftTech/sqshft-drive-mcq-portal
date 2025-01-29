@@ -10,6 +10,8 @@ export const F_NAME = "firstName";
 
 export const L_NAME = "lastName";
 
+export const ROLL_NUMBER = "lastName";
+
 export const SCORE = "score";
 
 export const LETTERN_PATTERN = /^[A-Za-z]+$/;
@@ -29,8 +31,7 @@ export const ROUTES_MAP = {
   ANY: "*",
 };
 
-export const API_URL =
-  process.env.REACT_APP_API_URL || "http://localhost:8080";
+export const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080";
 
 export const API_END_POINTS = {
   START_TEST: "",
