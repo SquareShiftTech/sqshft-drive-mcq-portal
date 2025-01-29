@@ -50,7 +50,7 @@ const getUserQuestions = async (req, res) => {
     logical: { easy: 2, medium: 1, hard: 2 },
     quants: { easy: 2, medium: 1, hard: 2 },
   };
-  const CONFIG = JSON.parse(process.env.CONFIG) || DEFAULT_CONFIG;
+  CONFIG = process.env.CONFIG ? JSON.parse(process.env.CONFIG) : DEFAULT_CONFIG;
 
   const groupedQuestions = Object.entries(CONFIG).flatMap(([type, levels]) => {
     return Object.entries(levels).flatMap(([level, count]) => {
