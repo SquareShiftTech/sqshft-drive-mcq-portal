@@ -17,7 +17,7 @@ import { isUserLoggedIn, makeAPICall } from "../../utils/helpers";
 import Modal from "../../components/modal";
 import Loading from "react-fullscreen-loading";
 
-const Login = () => {
+const Login = ({requestFullScreen}) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -57,6 +57,7 @@ const Login = () => {
       localStorage.setItem(EMAIL_ID, email);
       localStorage.setItem(F_NAME, firstName);
       localStorage.setItem(L_NAME, lastName);
+      requestFullScreen();
       navigate(ROUTES_MAP.QUESTIONS);
     } else {
       setShowModal(true);
