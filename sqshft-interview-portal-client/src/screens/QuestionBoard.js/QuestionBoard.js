@@ -12,6 +12,7 @@ import { makeAPICall } from "../../utils/helpers";
 import Loading from "react-fullscreen-loading";
 import { useNavigate } from "react-router-dom";
 import Modal from "../../components/modal";
+import "./question.css";
 
 const QuestionBoard = () => {
   const navigate = useNavigate();
@@ -111,7 +112,6 @@ const QuestionBoard = () => {
 
   useEffect(() => {
     const handleBeforeUnload = (e) => {
-      localStorage.clear();
       e.preventDefault();
       e.returnValue = "";
     };
@@ -121,6 +121,26 @@ const QuestionBoard = () => {
     return () => {
       // Cleanup event listener when component is unmounted
       window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
+  useEffect(() => {
+    // Disable right-click on the whole page
+    const preventRightClick = (e) => {
+      e.preventDefault();
+    };
+    window.addEventListener("contextmenu", preventRightClick);
+
+    // Intercept copy events to prevent copying
+    const preventCopy = (e) => {
+      e.preventDefault();
+    };
+    window.addEventListener("copy", preventCopy);
+
+    // Cleanup event listeners when component unmounts
+    return () => {
+      window.removeEventListener("contextmenu", preventRightClick);
+      window.removeEventListener("copy", preventCopy);
     };
   }, []);
 
@@ -136,12 +156,14 @@ const QuestionBoard = () => {
         <Loading loading background="#FFF" loaderColor="#257d256b" />
       ) : (
         <div className="container mt-5">
-          <div className="card">
+          <div className="card card-block-copy">
             <div className="card-body mt-5">
               <h2 className="card-title mb-4">
                 Question {currentIndex + 1}/{questions?.length}
               </h2>
-              <p className="card-text mb-4">{currentQuestion.Ques}</p>
+              <p className="card-text mb-4 card-question-block">
+                {currentQuestion.Ques}
+              </p>
 
               {currentQuestion.quesImage && (
                 <img
