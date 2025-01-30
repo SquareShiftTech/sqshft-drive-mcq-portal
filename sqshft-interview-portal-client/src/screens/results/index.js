@@ -15,7 +15,7 @@ export const Results = () => {
       const { data } = await makeAPICall({
         endpoint: API_END_POINTS.GET_RESULTS,
       });
-      setResults(data);
+      setResults(data || []);
       setLoading(false);
     };
     fetchResults();
@@ -23,7 +23,7 @@ export const Results = () => {
 
   const headers = [
     "First Name",
-    "Last Name",
+    "Roll Number",
     "Email",
     "Prog Score (%)",
     "Prog Attempted (10)",
