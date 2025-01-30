@@ -5,7 +5,6 @@ import ProtectedRoute from "./protectedroute";
 import { ROUTES_MAP } from "../../utils/constants";
 import { Results } from "../../screens/results";
 import QuestionBoard from "../../screens/QuestionBoard.js/QuestionBoard";
-import Modal from "../modal";
 
 const Navigation = () => {
   const requestFullScreen = () => {
@@ -36,7 +35,7 @@ const Navigation = () => {
           <Route
             exact
             path={ROUTES_MAP.QUESTIONS}
-            element={<QuestionBoard />}
+            element={<QuestionBoard requestFullScreen={requestFullScreen} />}
           />
         </Route>
         <Route path={ROUTES_MAP.ANY} element={<Login />} />

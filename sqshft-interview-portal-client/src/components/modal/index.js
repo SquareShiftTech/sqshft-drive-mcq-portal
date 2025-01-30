@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 
-export const Modal = ({ show, hideModal, content }) => {
+export const Modal = ({ show, hideModal, content, closeText = "Close", hideCrossIcon = false  }) => {
   if (!show) {
     return <React.Fragment />;
   }
@@ -14,15 +14,17 @@ export const Modal = ({ show, hideModal, content }) => {
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header header">
-            <button
-              type="button"
-              className="close"
-              data-dismiss="modal"
-              aria-label="Close"
-              onClick={hideModal}
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
+            {hideCrossIcon ? null :
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+                onClick={hideModal}
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            }
           </div>
           <div className="modal-body">{content}</div>
           <div className="modal-footer footer">
@@ -32,7 +34,7 @@ export const Modal = ({ show, hideModal, content }) => {
               data-dismiss="modal"
               onClick={hideModal}
             >
-              Close
+              {closeText}
             </button>
           </div>
         </div>

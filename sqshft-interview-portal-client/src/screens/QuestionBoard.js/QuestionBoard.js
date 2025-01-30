@@ -14,46 +14,60 @@ import { useNavigate } from "react-router-dom";
 import Modal from "../../components/modal";
 import "./question.css";
 
-const QuestionBoard = () => {
+const QuestionBoard = ({requestFullScreen}) => {
   const [showWarning, setShowWarningModal] = useState(false);
   const navigate = useNavigate();
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
 
   const [message, setMessage] = useState(
-    "Please stay on this tab!. If you try again you will be logged out"
+    "Please stay on this tab! Attempting to leave will result in an automatic logout."
   );
 
   const [count, setCount] = useState(0);
 
+
   useEffect(() => {
+
+    const handleFullscreenChange = () => {
+      setIsFullscreen(document.fullscreenElement ? true : false);
+    };
+
     const handleVisibilityChange = () => {
       // Detect when the page visibility changes (e.g., tab switch, minimize, etc.)
-      if (document.hidden) {
+      if (document.hidden && !showWarning) {
         setShowWarningModal(true);
         setCount((oldState) => oldState + 1);
       }
     };
 
     const handleWindowBlur = () => {
-      setShowWarningModal(true);
-      setCount((oldState) => oldState + 1);
+      if(!showWarning) {
+        setShowWarningModal(true);
+        setCount((oldState) => oldState + 1);
+      }
     };
 
     // Add event listeners for visibility change and window focus/blur events
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
     document.addEventListener("visibilitychange", handleVisibilityChange);
     window.addEventListener("blur", handleWindowBlur);
 
     // Clean up event listeners when the component unmounts
     return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
       window.addEventListener("blur", handleWindowBlur);
     };
-  }, []);
+  }, [showWarning]);
 
   useEffect(() => {
+    console.log('count --- ', count);
+    
     if (count === 2) {
       setShowWarningModal(true);
       setMessage("you have been logged out due to a policy violation.");
-      setCount((oldState) => oldState + 1);
       localStorage.clear();
       setTimeout(() => {
         navigate("/");
@@ -89,12 +103,14 @@ const QuestionBoard = () => {
   };
 
   const handleNext = () => {
+    requestFullScreen();
     if (currentIndex < questions.length - 1) {
       setCurrentIndex((prevIndex) => prevIndex + 1);
     }
   };
 
   const handlePrevious = () => {
+    requestFullScreen();
     if (currentIndex > 0) {
       setCurrentIndex((prevIndex) => prevIndex - 1);
     }
@@ -272,6 +288,14 @@ const QuestionBoard = () => {
         hideModal={handleHideModal}
         content={modalContent}
       />
+
+      <Modal
+        show={!isFullscreen && !showWarning && !showModal}
+        hideModal={() => requestFullScreen()}
+        hideCrossIcon={true}
+        closeText={"Open fullscreen"}
+        content={"You must remain in fullscreen mode until the exam is complete. Exiting fullscreen will result in automatic logout."}
+      ></Modal>
 
       {/* Show the warning modal if the state is true */}
       <Modal
