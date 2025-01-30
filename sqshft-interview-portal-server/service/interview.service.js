@@ -46,9 +46,9 @@ const startTest = async (req, res) => {
 // ROUTE:  GET USERS QUESTION
 const getUserQuestions = async (req, res) => {
   const DEFAULT_CONFIG = {
-    prog: { easy: 5, medium: 3, hard: 2 },
-    logical: { easy: 2, medium: 1, hard: 2 },
-    quants: { easy: 2, medium: 1, hard: 2 },
+    prog: { easy: 4, medium: 1, hard: 5 },
+    logical: { easy: 3, medium: 4, hard: 3 },
+    quants: { easy: 4, medium: 4, hard: 2 },
   };
   CONFIG = process.env.CONFIG ? JSON.parse(process.env.CONFIG) : DEFAULT_CONFIG;
 
@@ -129,8 +129,8 @@ const getAllUserReports = async (req, res) => {
       // Configuration for total questions per section
       const DEFAULT_CONFIG = {
         prog: 10, // Total number of questions in 'prog'
-        logical: 5, // Total number of questions in 'logical'
-        quants: 5, // Total number of questions in 'quants'
+        logical: 10, // Total number of questions in 'logical'
+        quants: 10, // Total number of questions in 'quants'
       };
 
       const sectionScores = {

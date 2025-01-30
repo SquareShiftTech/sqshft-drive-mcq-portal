@@ -198,7 +198,7 @@ const QuestionBoard = () => {
       {loading ? (
         <Loading loading background="#FFF" loaderColor="#257d256b" />
       ) : (
-        <div className="container mt-5">
+        <div className="container mt-5 mb-5">
           <div className="card card-block-copy">
             <div className="card-body mt-5">
               <h2 className="card-title mb-4">
@@ -212,7 +212,7 @@ const QuestionBoard = () => {
                 <img
                   src={currentQuestion.quesImage}
                   alt="Question"
-                  className="img-fluid mb-4"
+                  className="img-fluid mb-4 image-question"
                 />
               )}
 

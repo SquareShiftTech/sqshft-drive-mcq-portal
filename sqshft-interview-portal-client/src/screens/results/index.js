@@ -28,9 +28,9 @@ export const Results = () => {
     "Prog Score (%)",
     "Prog Attempted (10)",
     "Logical Score (%)",
-    "Logical Attempted (5)",
+    "Logical Attempted (10)",
     "Quants Score (%)",
-    "Quants Attempted (5)",
+    "Quants Attempted (10)",
   ];
 
   const fieldKeys = [
