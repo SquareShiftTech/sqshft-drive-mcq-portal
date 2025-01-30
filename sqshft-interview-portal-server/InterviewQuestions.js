@@ -4,7 +4,13 @@ const Questions = [
     id: 1,
     Ques: "What does HTML stand for?",
     quesImage: "",
-    codeBlock: "",
+    codeBlock: `
+my_list = ['Multiple of 6' if i % 6 == 0 
+           else 'Multiple of 2' if i % 2 == 0 
+           else 'Multiple of 3' if i % 3 == 0 
+           else i for i in range(1, 20)]
+print(my_list)
+    `,
     type: "prog",
     level: "easy",
     options: [
@@ -20,7 +26,13 @@ const Questions = [
     id: 2,
     Ques: "Which language is used for styling web pages?",
     quesImage: "",
-    codeBlock: "",
+    codeBlock:  `
+    my_list = ['Multiple of 6' if i % 6 == 0 
+               else 'Multiple of 2' if i % 2 == 0 
+               else 'Multiple of 3' if i % 3 == 0 
+               else i for i in range(1, 20)]
+    print(my_list)
+        `,
     type: "prog",
     level: "easy",
     options: [
@@ -34,7 +46,13 @@ const Questions = [
     id: 3,
     Ques: "What does the `console.log()` function do?",
     quesImage: "",
-    codeBlock: "",
+    codeBlock:  `
+    my_list = ['Multiple of 6' if i % 6 == 0 
+               else 'Multiple of 2' if i % 2 == 0 
+               else 'Multiple of 3' if i % 3 == 0 
+               else i for i in range(1, 20)]
+    print(my_list)
+        `,
     type: "prog",
     level: "easy",
     options: [
@@ -48,7 +66,13 @@ const Questions = [
     id: 4,
     Ques: "Which of the following is a JavaScript library?",
     quesImage: "",
-    codeBlock: "",
+    codeBlock:  `
+    my_list = ['Multiple of 6' if i % 6 == 0 
+               else 'Multiple of 2' if i % 2 == 0 
+               else 'Multiple of 3' if i % 3 == 0 
+               else i for i in range(1, 20)]
+    print(my_list)
+        `,
     type: "prog",
     level: "easy",
     options: [
@@ -62,7 +86,13 @@ const Questions = [
     id: 5,
     Ques: "What does the `for` loop do?",
     quesImage: "",
-    codeBlock: "",
+    codeBlock:  `
+    my_list = ['Multiple of 6' if i % 6 == 0 
+               else 'Multiple of 2' if i % 2 == 0 
+               else 'Multiple of 3' if i % 3 == 0 
+               else i for i in range(1, 20)]
+    print(my_list)
+        `,
     type: "prog",
     level: "easy",
     options: [

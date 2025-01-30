@@ -34,7 +34,7 @@ export const ROUTES_MAP = {
 export const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080";
 
 export const API_END_POINTS = {
-  START_TEST: "",
+  START_TEST: "/api/start-test",
   SUBMIT_TEST: "/api/submit-test",
   GET_QUESTIONS: "/api/get-questions",
   GET_RESULTS: "/api/get-results",
