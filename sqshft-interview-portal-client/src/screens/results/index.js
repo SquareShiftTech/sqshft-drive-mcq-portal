@@ -24,7 +24,6 @@ export const Results = () => {
   const headers = [
     "First Name",
     "Roll Number",
-    "Email",
     "Prog Score (%)",
     "Prog Attempted (10)",
     "Logical Score (%)",
@@ -35,8 +34,7 @@ export const Results = () => {
 
   const fieldKeys = [
     "firstName",
-    "lastName",
-    "email",
+    "rollNumber",
     "progScore",
     "progAttempted",
     "logicalScore",
@@ -47,8 +45,7 @@ export const Results = () => {
 
   const flattenedData = results.map((item) => ({
     firstName: item.firstName,
-    lastName: item.lastName,
-    email: item.email,
+    rollNumber: item.rollNumber,
     progScore: item.scores.prog.scorePercentage,
     progAttempted: item.scores.prog.attempted,
     logicalScore: item.scores.logical.scorePercentage,

@@ -4,7 +4,6 @@ import { Navbar } from "../../components/navbar";
 import {
   API_END_POINTS,
   API_METHODS,
-  EMAIL_ID,
   F_NAME,
   ROLL_NUMBER,
 } from "../../utils/constants";
@@ -14,11 +13,10 @@ import { useNavigate } from "react-router-dom";
 import Modal from "../../components/modal";
 import "./question.css";
 
-const QuestionBoard = ({requestFullScreen}) => {
+const QuestionBoard = ({ requestFullScreen }) => {
   const [showWarning, setShowWarningModal] = useState(false);
   const navigate = useNavigate();
   const [isFullscreen, setIsFullscreen] = useState(false);
-
 
   const [message, setMessage] = useState(
     "Please stay on this tab! Attempting to leave will result in an automatic logout."
@@ -26,9 +24,7 @@ const QuestionBoard = ({requestFullScreen}) => {
 
   const [count, setCount] = useState(0);
 
-
   useEffect(() => {
-
     const handleFullscreenChange = () => {
       setIsFullscreen(document.fullscreenElement ? true : false);
     };
@@ -42,7 +38,7 @@ const QuestionBoard = ({requestFullScreen}) => {
     };
 
     const handleWindowBlur = () => {
-      if(!showWarning) {
+      if (!showWarning) {
         setShowWarningModal(true);
         setCount((oldState) => oldState + 1);
       }
@@ -63,8 +59,8 @@ const QuestionBoard = ({requestFullScreen}) => {
   }, [showWarning]);
 
   useEffect(() => {
-    console.log('count --- ', count);
-    
+    console.log("count --- ", count);
+
     if (count === 2) {
       setShowWarningModal(true);
       setMessage("you have been logged out due to a policy violation.");
@@ -122,9 +118,8 @@ const QuestionBoard = ({requestFullScreen}) => {
       endpoint: API_END_POINTS.SUBMIT_TEST,
       method: API_METHODS.POST,
       body: {
-        firstName: localStorage.getItem(F_NAME),
-        lastName: localStorage.getItem(ROLL_NUMBER) || "",
-        email: localStorage.getItem(EMAIL_ID),
+        firstName: localStorage.getItem(F_NAME) || "",
+        rollNumber: localStorage.getItem(ROLL_NUMBER) || "",
         selectedAnswers,
       },
     });
@@ -172,7 +167,9 @@ const QuestionBoard = ({requestFullScreen}) => {
   useEffect(() => {
     const handleBeforeUnload = (e) => {
       e.preventDefault();
+      localStorage.clear();
       e.returnValue = "";
+      window.location.reload();
     };
 
     window.addEventListener("beforeunload", handleBeforeUnload);
@@ -294,7 +291,9 @@ const QuestionBoard = ({requestFullScreen}) => {
         hideModal={() => requestFullScreen()}
         hideCrossIcon={true}
         closeText={"Open fullscreen"}
-        content={"You must remain in fullscreen mode until the exam is complete. Exiting fullscreen will result in automatic logout."}
+        content={
+          "You must remain in fullscreen mode until the exam is complete. Exiting fullscreen will result in automatic logout."
+        }
       ></Modal>
 
       {/* Show the warning modal if the state is true */}

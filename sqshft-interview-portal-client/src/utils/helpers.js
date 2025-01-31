@@ -1,7 +1,7 @@
 import { API_METHODS, API_URL } from "./constants";
 
 export const isUserLoggedIn = () => {
-  return localStorage.getItem("email")?.length > 0;
+  return localStorage.getItem("rollNumber")?.length > 0;
 };
 
 export const makeAPICall = async ({
@@ -18,10 +18,10 @@ export const makeAPICall = async ({
       ...headers,
     },
   };
-  if(method !== API_METHODS.GET){
-    apiOptions['body'] =  JSON.stringify(body)
+  if (method !== API_METHODS.GET) {
+    apiOptions["body"] = JSON.stringify(body);
   }
-  const rawResponse = await fetch(`${API_URL}${endpoint}` , {...apiOptions});
+  const rawResponse = await fetch(`${API_URL}${endpoint}`, { ...apiOptions });
   const response = await rawResponse.json();
   return response;
 };

@@ -5,11 +5,8 @@ import {
   API_END_POINTS,
   API_METHODS,
   COMPANY_CAPTION,
-  EMAIL_ID,
-  EMAIL_PATTERN,
   F_NAME,
   IMAGE_URL,
-  LETTERN_PATTERN,
   ROLL_NUMBER,
   ROUTES_MAP,
 } from "../../utils/constants";
@@ -20,7 +17,6 @@ import Loading from "react-fullscreen-loading";
 const Login = ({ requestFullScreen }) => {
   const [firstName, setFirstName] = useState("");
   const [rollNumber, setRollNumber] = useState("");
-  const [email, setEmail] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState("");
   const [loading, setLoading] = useState(false);
@@ -33,11 +29,7 @@ const Login = ({ requestFullScreen }) => {
   }, []);
 
   const onStartButtonPress = async () => {
-    if (!email.match(EMAIL_PATTERN)) {
-      setShowModal(true);
-      setModalContent("Please enter valid email");
-      return;
-    } else if (firstName.length < 2) {
+    if (firstName.length < 2) {
       setShowModal(true);
       setModalContent("Please enter valid name.");
       return;
@@ -47,13 +39,12 @@ const Login = ({ requestFullScreen }) => {
       endpoint: API_END_POINTS.START_TEST,
       body: {
         firstName,
-        lastName: rollNumber,
-        email,
+        rollNumber,
       },
       method: API_METHODS.POST,
     });
+
     if (data?.success) {
-      localStorage.setItem(EMAIL_ID, email);
       localStorage.setItem(F_NAME, firstName);
       localStorage.setItem(ROLL_NUMBER, rollNumber);
       requestFullScreen();
@@ -81,34 +72,36 @@ const Login = ({ requestFullScreen }) => {
           value={firstName}
           type="text"
           placeholder="Enter Name"
-          onChange={(e) =>
-            (e.target.value.match(LETTERN_PATTERN) ||
-              e.target.value.toString().length === 0) &&
-            setFirstName(e.target.value)
-          }
+          onChange={(e) => setFirstName(e.target.value)}
         />
         <input
           className="form-control w-75 m-3"
           type="text"
-          placeholder="Enter Roll Number"
+          placeholder="Enter College Roll Number"
           value={rollNumber}
           onChange={(e) => setRollNumber(e.target.value)}
         />
-        <input
-          type="email"
-          className="form-control w-75 m-3"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <div
+          class="alert alert-success instruction-box text-center w-75 mt-3"
+          role="alert"
+        >
+          <h4 class="alert-heading">Important Instructions</h4>
+          <p>Please follow these rules while attempting the test:</p>
+          <ul class="text-start">
+            <li>Do not reload or refresh the page.</li>
+            <li>Do not exit or minimize the browser window.</li>
+            <li>Once started, complete the test without interruptions.</li>
+          </ul>
+          <hr />
+          <p class="mb-0">
+            Any violation of these rules may result in automatic test
+            submission.
+          </p>
+        </div>
         <button
           className="btn btn-primary"
           onClick={onStartButtonPress}
-          disabled={
-            firstName.length === 0 ||
-            email.length === 0 ||
-            rollNumber.length === 0
-          }
+          disabled={firstName.length === 0 || rollNumber.length === 0}
         >
           Start test
         </button>

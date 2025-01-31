@@ -10,7 +10,7 @@ export const F_NAME = "firstName";
 
 export const L_NAME = "lastName";
 
-export const ROLL_NUMBER = "lastName";
+export const ROLL_NUMBER = "rollNumber";
 
 export const SCORE = "score";
 

@@ -3,6 +3,7 @@ const serviceAccount = require("../service-drive.json");
 require("dotenv").config();
 
 const Questions = require("../InterviewQuestions");
+const AllowedRollNumber = require("../AllowedRollNumber");
 
 fs.initializeApp({
   credential: fs.credential.cert(serviceAccount),
@@ -19,8 +20,16 @@ const shuffleAndPick = (data, count) => {
 // ROUTE: Start the test
 const startTest = async (req, res) => {
   try {
-    const { email = "", firstName = "" } = req.body;
-    const candidateRef = candidatesCollection.doc(email);
+    const { firstName = "", rollNumber = "" } = req.body;
+
+    if (!AllowedRollNumber.includes(rollNumber)) {
+      return res.status(403).send({
+        success: false,
+        message: "Not registered to take test. Please contact admin.",
+      });
+    }
+
+    const candidateRef = candidatesCollection.doc(rollNumber);
     const doc = await candidateRef.get();
     if (!doc.exists) {
       const response = await candidateRef.set(req.body);
@@ -31,7 +40,7 @@ const startTest = async (req, res) => {
     } else {
       res.status(200).send({
         success: false,
-        message: `Dear ${firstName} \n You have already taken up the test.`,
+        message: `Dear ${firstName} \n You have already taken up the test with registered roll number.`,
       });
     }
   } catch (error) {
@@ -75,19 +84,13 @@ const getUserQuestions = async (req, res) => {
 // ROUTE: POST USER ANSWER
 const submitUserTest = async (req, res) => {
   try {
-    const {
-      selectedAnswers = {},
-      email = "",
-      firstName = "",
-      lastName = "",
-    } = req.body;
-    const candidateRef = candidatesCollection.doc(email);
+    const { selectedAnswers = {}, rollNumber = "", firstName = "" } = req.body;
+    const candidateRef = candidatesCollection.doc(rollNumber);
     const doc = await candidateRef.get();
     if (doc.exists) {
       const response = await candidateRef.set({
         firstName,
-        lastName,
-        email,
+        rollNumber,
         answers: selectedAnswers,
       });
       res.status(201).send({
@@ -124,7 +127,7 @@ const getAllUserReports = async (req, res) => {
 
     snapshot.forEach((doc) => {
       const userData = doc.data();
-      const { firstName, lastName, email, answers = {} } = userData;
+      const { firstName, rollNumber, answers = {} } = userData;
 
       // Configuration for total questions per section
       const DEFAULT_CONFIG = {
@@ -187,8 +190,7 @@ const getAllUserReports = async (req, res) => {
       // Add user report
       report.push({
         firstName,
-        lastName,
-        email,
+        rollNumber,
         scores,
       });
     });
