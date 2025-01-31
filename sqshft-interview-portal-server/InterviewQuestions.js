@@ -76,25 +76,24 @@ const Questions = [
   },
   {
     id: 4,
-    Ques: "Guess the output of this javascript code?",
+    Ques: "What will be the output of the following C code?",
     quesImage: "",
     codeBlock: `
-  let x = [1, 2, 3];
-  let y = [1, 2, 3];
-  let z = y;
-  
-  console.log(x == y);
-  console.log(x === y);
-  console.log(z == y);
-  console.log(z == x);
+  #include <stdio.h>
+  int main() {
+  int a = 10;
+  int *p = &a;
+  printf("%d", *p);
+  return 0;
+  }
     `,
     type: "prog",
     level: "easy",
     options: [
-      { id: "1", option: "false false true false" },
-      { id: "2", option: "false false false false" },
-      { id: "3", option: "true true false true" },
-      { id: "4", option: "false true false true" },
+      { id: "1", option: "10" },
+      { id: "2", option: "Run Time error" },
+      { id: "3", option: "Address of a" },
+      { id: "4", option: "0" },
     ],
     answer: [{ id: "1" }],
     isMultiSelect: false,
@@ -104,17 +103,19 @@ const Questions = [
     Ques: "Guess the output?",
     quesImage: "",
     codeBlock: `
-  const arr = [1, 2, 3];
-  arr.shift();
-  console.log(arr);
+  #include <stdio.h>
+  int main() {
+    printf("%d", 4 + 5 * 2 / 4 % 2 - 1);
+    return 0;
+  }
     `,
     type: "prog",
     level: "easy",
     options: [
-      { id: "1", option: "[2, 3]" },
-      { id: "2", option: "[1, 2]" },
-      { id: "3", option: "[3]" },
-      { id: "4", option: "[2, 3, 1]" },
+      { id: "1", option: "3" },
+      { id: "2", option: "1.25" },
+      { id: "3", option: "9" },
+      { id: "4", option: "4.75" },
     ],
     answer: [{ id: "1" }],
     isMultiSelect: false,
@@ -200,7 +201,7 @@ const Questions = [
   },
   {
     id: 10,
-    Ques: "What is the difference between forEach() and map()?",
+    Ques: "What is the difference between forEach() and map() in Javascript?",
     quesImage: "",
     codeBlock: "",
     type: "prog",
