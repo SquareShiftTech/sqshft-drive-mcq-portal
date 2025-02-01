@@ -119,6 +119,16 @@ const AllowedRollNumber = [
   "21BAD046",
   "21BAD055",
   "21BAD058",
+  "SQS00001",
+  "SQS00002",
+  "SQS00003",
+  "SQS00004",
+  "SQS00005",
+  "SQS00006",
+  "SQS00007",
+  "SQS00008",
+  "SQS00009",
+  "SQS00010",
 ];
 
 module.exports = AllowedRollNumber;
