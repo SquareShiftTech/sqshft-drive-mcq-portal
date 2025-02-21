@@ -67,4 +67,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 ### `npm run build` fails to minify
 
+gcloud run deploy sqshft-interview-portal-client --source .
+gcloud run deploy sqshft-interview-portal-server --source .
+
+Deployed Url : https://sqshft-interview-portal-client-876289777625.us-central1.run.app/
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
